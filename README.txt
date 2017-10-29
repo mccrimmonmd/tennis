@@ -5,4 +5,4 @@ to the player's skills. Based on Chris DeLeon's Udemy programming course,
 "Code Your First Game: Arcade Classic in JavaScript on Canvas" (available at 
 https://www.udemy.com/code-your-first-game/).
 
-See COPYRIGHT.txt for ownership and licensing information.
+See LICENSE.txt for ownership and licensing information.
