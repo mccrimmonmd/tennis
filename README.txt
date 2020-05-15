@@ -1,4 +1,4 @@
-"Tennis" v1.0
+"Tennis" v1.1
 
 A simple table-tennis simulator with an adaptive AI that adjust its difficulty 
 to the player's skills. Based on Chris DeLeon's Udemy programming course, 
