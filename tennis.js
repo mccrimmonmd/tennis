@@ -7,9 +7,10 @@ var ballSpeedY = 0;
 var ballMissed = false;
 const BALL_RADIUS = 10;
 
-var leftPlayerScore = 0;
-var rightPlayerScore = 0;
-const WINNING_SCORE = 3;
+var playerScore = 0;
+var computerScore = 0;
+var playerScoredLast;
+//const WINNING_SCORE = 1;
 
 var showingStartScreen = true;
 var showingWinScreen = false;
@@ -71,8 +72,8 @@ function handleMouseClick(evt) {
 		ballReset();
 	}
 	else if (showingWinScreen) {
-		leftPlayerScore = 0;
-		rightPlayerScore = 0;
+		//playerScore = 0;
+		//computerScore = 0;
 		showingWinScreen = false;
 	}
 	else {
@@ -160,7 +161,8 @@ function ballMovement() {
 
 	//left wall
 	if (ballX < 0) {
-		rightPlayerScore += 1;
+		computerScore += 1;
+		playerScoredLast = false;
 		ballReset();
 	}
 	else if (ballX < ballPaddleCollision && !ballMissed) {
@@ -185,7 +187,8 @@ function ballMovement() {
 	}
 	//right wall
 	if (ballX > canvas.width) {
-		leftPlayerScore += 1;
+		playerScore += 1;
+		playerScoredLast = true;
 		ballReset();
 	}
 	else if (ballX > canvas.width-ballPaddleCollision && !ballMissed) {
@@ -222,11 +225,13 @@ function ballMovement() {
 }
 
 function ballReset() {
-	if (leftPlayerScore >= WINNING_SCORE) {
+	if (playerScoredLast === undefined) {
+		//skip this part
+	} else if (playerScoredLast) {
 		increaseDifficulty();
 		yussSnd.play();
 		showingWinScreen = true;
-	} else if (rightPlayerScore >= WINNING_SCORE) {
+	} else {
 		decreaseDifficulty();
 		awwSnd.play();
 		showingWinScreen = true;
@@ -291,14 +296,14 @@ function drawEverything() {
 		canvasContext.textAlign = 'center';
 		canvasContext.font = 'normal 20pt monospace';
 
-		if (leftPlayerScore >= WINNING_SCORE) {
+		if (playerScoredLast) {
 			canvasContext.drawImage(coffeeImg, canvas.width/2 - 150,canvas.height/3 + 50);
-			canvasContext.fillText("PLAYER WINS!", canvas.width/2,200);
+			canvasContext.fillText("PLAYER SCORES!", canvas.width/2,200);
 			canvasContext.font = 'normal 15pt monospace';
 			canvasContext.fillText("(your opponent drinks some coffee...)", canvas.width/2,250);
-		} else if (rightPlayerScore >= WINNING_SCORE) {
+		} else {
 			canvasContext.drawImage(sleepImg, canvas.width/2 - 160,canvas.height/3 + 80);
-			canvasContext.fillText("COMPUTER WINS!", canvas.width/2,200);
+			canvasContext.fillText("COMPUTER SCORES!", canvas.width/2,200);
 			canvasContext.font = 'normal 15pt monospace';
 			canvasContext.fillText("(your opponent is feeling sleepy...)", canvas.width/2,250);
 		}
@@ -337,8 +342,8 @@ function drawEverything() {
 	canvasContext.fillStyle = 'white';
 	canvasContext.font = 'normal 40pt monospace';
 	canvasContext.textAlign = 'center';
-	canvasContext.fillText(leftPlayerScore, 100,100);
-	canvasContext.fillText(rightPlayerScore, canvas.width-100,100);
+	canvasContext.fillText(playerScore, 100,100);
+	canvasContext.fillText(computerScore, canvas.width-100,100);
 
 	//left (player) paddle
 	colorRect(PADDLE_GAP,leftPaddleY,
