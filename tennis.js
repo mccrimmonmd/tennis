@@ -31,10 +31,10 @@ var isPaused = false;
 const MUTE_POS = {x:50, y:580};
 const PAUSE_POS = {x:980, y:580};
 
-var bonkSnd = new Audio("bonk.mp3");
-var whiffSnd = new Audio("whiff.mp3");
-var yussSnd = new Audio("yuss.mp3");
-var awwSnd = new Audio("aww.mp3");
+var bonkSnd = new Audio("sounds/bonk.mp3");
+var whiffSnd = new Audio("sounds/whiff.mp3");
+var yussSnd = new Audio("sounds/yuss.mp3");
+var awwSnd = new Audio("sounds/aww.mp3");
 var allSounds = [bonkSnd, whiffSnd, yussSnd, awwSnd];
 
 var coffeeImg = new Image();
